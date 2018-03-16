@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="Job Title">工作</entry>
+    <entry key="Name">姓名</entry>
+    <entry key="Language">语言</entry>
+</properties>
