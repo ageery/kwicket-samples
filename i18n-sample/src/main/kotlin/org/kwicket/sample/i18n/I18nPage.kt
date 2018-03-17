@@ -1,5 +1,6 @@
 package org.kwicket.sample.i18n
 
+import org.kwicket.agilecoders.wicket.extensions.markup.html.bootstrap.form.select.KBootstrapSelect
 import org.kwicket.component.q
 import org.kwicket.component.refresh
 import org.kwicket.model.model
@@ -11,11 +12,10 @@ import org.kwicket.wicket.core.ajax.form.KAjaxFormComponentUpdatingBehavior
 import org.kwicket.wicket.core.markup.html.KWebMarkupContainer
 import org.kwicket.wicket.core.markup.html.basic.KLabel
 import org.kwicket.wicket.core.markup.html.form.KChoiceRenderer
-import org.kwicket.wicket.core.markup.html.form.KDropDownChoice
 import org.kwicket.wicket.core.markup.html.form.KForm
 import java.io.Serializable
-import java.util.Locale.CHINA
 import java.util.Locale.ENGLISH
+import java.util.Locale.SIMPLIFIED_CHINESE
 
 data class Person(val name: String, val job: String) : Serializable
 
@@ -38,20 +38,22 @@ class I18nPage : SampleBasePage() {
          */
         val localeModel = ENGLISH.model()
         q(KForm(id = "form", model = localeModel))
-        q(KLabel(id = "language", model = "Language".res()))
+        val languageLabel = q(KLabel(id = "language", model = "Language".res(), outputMarkupId = true))
         q(
-            KDropDownChoice(
+            KBootstrapSelect(
                 id = "locale",
                 model = localeModel,
-                choices = listOf(ENGLISH, CHINA),
+                nullValid = false,
+                choices = listOf(ENGLISH, SIMPLIFIED_CHINESE),
                 renderer = KChoiceRenderer(toDisplay = { it.displayName },
-                    toIdValue = { locale, _ -> locale.isO3Country },
-                    toObject = { id, listModel -> listModel.value.first { it.isO3Country == id } }),
+                    toIdValue = { locale, _ -> locale.language },
+                    toObject = { id, listModel -> listModel.value.first { it.language == id } }),
                 behaviors = *arrayOf(
                     KAjaxFormComponentUpdatingBehavior(event = "change",
                         onUpdate = {
                             session.locale = localeModel.value
                             container.refresh()
+                            languageLabel.refresh()
                         })
                 )
             )
