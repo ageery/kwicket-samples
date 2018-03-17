@@ -39,6 +39,8 @@ dependencies {
     compile("org.kwicket:kwicket-wicket-bootstrap-core:$kWicketVersion")
 
     compile("de.agilecoders.wicket:wicket-bootstrap-extensions:$wicketBootstrapVersion")
+    compile("org.kwicket:kwicket-wicket-bootstrap-extensions:$kWicketVersion")
+
     compile("de.agilecoders.wicket:wicket-bootstrap-themes:$wicketBootstrapVersion")
 
 }
