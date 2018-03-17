@@ -58,6 +58,7 @@ subprojects {
     }
 
     repositories {
+        mavenLocal()
         mavenCentral()
         jcenter()
         maven(url = "https://oss.jfrog.org/artifactory/oss-snapshot-local")
