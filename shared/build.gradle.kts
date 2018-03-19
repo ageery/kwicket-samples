@@ -1,8 +1,8 @@
+import org.jetbrains.kotlin.com.intellij.openapi.vfs.StandardFileSystems.jar
+import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
+
 plugins {
-    id("org.springframework.boot")
-    id("org.jetbrains.kotlin.jvm")
-    id("org.jetbrains.kotlin.plugin.spring")
-    id("io.spring.dependency-management")
+    id("org.springframework.boot") apply false
 }
 
 val wicketVersion by project
@@ -11,7 +11,14 @@ val wicketBootstrapVersion by project
 val kWicketVersion by project
 val kotlinxHtmlVersion by project
 
+dependencyManagement {
+    imports {
+        mavenBom(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
+    }
+}
+
 dependencies {
+
     compile("org.springframework.boot:spring-boot-starter-web")
 
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")

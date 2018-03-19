@@ -5,16 +5,10 @@ plugins {
     val kotlinVersion = "1.2.30"
     val bootVersion = "2.0.0.RELEASE"
     val dependencyManagementVersion = "1.0.4.RELEASE"
-    id("org.springframework.boot") version bootVersion
     id("org.jetbrains.kotlin.jvm") version kotlinVersion
-    id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion
-    id("io.spring.dependency-management") version dependencyManagementVersion
-}
-
-repositories {
-    mavenCentral()
-    jcenter()
-    maven(url = "https://oss.jfrog.org/artifactory/oss-snapshot-local")
+    id("io.spring.dependency-management") version dependencyManagementVersion apply false
+    id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion apply false
+    id("org.springframework.boot") version bootVersion apply false
 }
 
 allprojects {
@@ -23,6 +17,10 @@ allprojects {
 }
 
 subprojects {
+
+    plugins.apply("org.jetbrains.kotlin.jvm")
+    plugins.apply("io.spring.dependency-management")
+    plugins.apply("org.jetbrains.kotlin.plugin.spring")
 
     tasks.withType<KotlinCompile> {
         kotlin {
