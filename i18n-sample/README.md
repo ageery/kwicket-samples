@@ -32,3 +32,14 @@ The Chinese localization specifies all of the resources.
 
 When the language drop-down is changed, the container is refreshed via ajax
 and the labels for the specified language are displayed properly.
+
+Running
+-------
+
+From the _parent_ project:
+
+`./gradlew :i18n-sample:bootRun`
+
+or
+
+`.\gradlew.bat :i18n-sample:bootRun`

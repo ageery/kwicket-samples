@@ -17,6 +17,9 @@ import java.io.Serializable
 import java.util.Locale.ENGLISH
 import java.util.Locale.SIMPLIFIED_CHINESE
 
+/*
+ * Bean backing the page model.
+ */
 data class Person(val name: String, val job: String) : Serializable
 
 class I18nPage : SampleBasePage() {
