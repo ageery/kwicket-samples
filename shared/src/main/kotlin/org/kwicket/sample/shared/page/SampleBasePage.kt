@@ -29,9 +29,11 @@ open class SampleBasePage(params: PageParameters? = null) : WebPage(params), IAj
 
     private val feedback: Component
 
+    protected open val pageTitleModel = "page.title".res()
+
     init {
         q(HtmlTag("html"))
-        q(Label("title", "page.title".res()))
+        q(Label("title", pageTitleModel))
         q(MobileViewportMetaTag("viewport"))
         q(IeEdgeMetaTag("ie-edge"))
         q(

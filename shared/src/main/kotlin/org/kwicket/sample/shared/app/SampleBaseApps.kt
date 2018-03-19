@@ -13,7 +13,7 @@ import org.kwicket.wicketstuff.annotation.enableMountAnnotations
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.Bean
 
-abstract class AbstractSampleWicketApp(homePage: Class<out Page>,
+open class SampleWicketApp(homePage: Class<out Page>,
     type: RuntimeConfigurationType = RuntimeConfigurationType.DEVELOPMENT) :
     KWebApplication(configurationType = type) {
 
