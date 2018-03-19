@@ -22,16 +22,22 @@ in a properties file, to the value of the receiver. This enables a "progressive"
 localization as there will always be a meaningful value.
 
 When used with a `.properties.xml` file, the localization keys can be the 
-native phrases themselves; there is no need to devise a key naming convention
+native phrases themselves; there is no need to devise a key-naming convention
 such as would be required with a `.properties` file (which does not allow
-spaces in the keys).
+spaces in keys).
 
 In the example, the English localization does _not_ specify "Name" or 
 "Language" (so these labels are rendered as-is) but _does_ specify "Job Title". 
 The Chinese localization specifies all of the resources.
 
 When the language drop-down is changed, the container is refreshed via ajax
-and the labels for the specified language are displayed properly.
+and the labels for the specified language are displayed properly. The refresh is
+invoked using the `Component.refresh()` method instead of the usual `target.add(...)`
+method.
+
+The use of `KBootstrapSelect` is a good example of named parameters: because they're
+named it's easy to determine the meaning of each parameter as opposed to relying
+on parameter position.
 
 Running
 -------

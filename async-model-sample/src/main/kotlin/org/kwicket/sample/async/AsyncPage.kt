@@ -26,7 +26,9 @@ class AsyncPage(params: PageParameters) : SampleBasePage(params = params) {
 
     init {
         val parallel = params["p"].toBoolean(false)
-        val createBehaviors = { if (parallel) arrayOf(AsyncModelLoadBehavior()) else emptyArray() }
+        val createBehaviors = {
+            if (parallel) arrayOf(AsyncModelLoadBehavior()) else emptyArray()
+        }
         q(
             KLabel(
                 id = "overview", model = {
