@@ -1,2 +1,2 @@
 rootProject.name = "org.kwicket.samples"
-include("shared", "i18n-sample", "async-model-sample")
+include("shared", "app-l10n", "app-async")

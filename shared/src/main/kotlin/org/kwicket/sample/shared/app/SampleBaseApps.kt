@@ -25,7 +25,7 @@ open class SampleWicketApp(homePage: Class<out Page>,
         super.init()
         enableMountAnnotations(scanPackages = listOf("org.kwicket.sample"))
         enableBootstrap(themeProvider = SingleThemeProvider(BootstrapTheme()))
-        enableSpringIoC()
+        //enableSpringIoC()
     }
 
 }

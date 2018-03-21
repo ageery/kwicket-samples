@@ -4,4 +4,6 @@
     <entry key="Job Title">工作</entry>
     <entry key="Name">姓名</entry>
     <entry key="Language">语言</entry>
+    <entry key="Switch Language">改变语言</entry>
+    <entry key="Home">家</entry>
 </properties>

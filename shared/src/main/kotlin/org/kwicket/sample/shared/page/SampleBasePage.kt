@@ -36,18 +36,21 @@ open class SampleBasePage(params: PageParameters? = null) : WebPage(params), IAj
         q(Label("title", pageTitleModel))
         q(MobileViewportMetaTag("viewport"))
         q(IeEdgeMetaTag("ie-edge"))
-        q(
-            KNavbar(
-                id = "navbar",
-                renderBodyOnly = false,
-                brandName = "app.name".res(),
-                inverted = true,
-                position = Navbar.Position.TOP
-            )
-        )
         q(Icon("ajax-indicator", FontAwesomeIconType.spinner).setMarkupId(ajaxIndicatorId))
         feedback = q(KNotificationPanel(id = "feedback", outputMarkupPlaceholderTag = true))
     }
+
+    override fun onInitialize() {
+        super.onInitialize()
+        q(createNavbar("navbar"))
+    }
+
+    protected open fun createNavbar(id: String) = KNavbar(
+        id = id,
+        brandName = "app.name".res(),
+        inverted = true,
+        position = Navbar.Position.TOP
+    )
 
     override fun renderHead(response: IHeaderResponse) {
         super.renderHead(response)

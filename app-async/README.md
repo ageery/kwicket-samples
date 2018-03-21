@@ -28,6 +28,14 @@ If the value of the parameter `p` is false, the `AsyncModelLoadBehavior` is _not
 and the page renders in about six second and the second label has a time that is approximately three seconds
 after the first label.
 
+The `AsyncModelLoadBehavior` works by calling the `AsyncModel.loadAsync` method in the `onConfigure`
+phase of rendering to start the load of something that may be slow. The `SuspendableLoadableDetachableModel`
+blocks in the `load` method until the value from the `suspend`'able lambda is available.
+
+Note that if the model value is itself referenced in the `onConfigure` phase (e.g., using
+the model value to determine if the component should be visible) this pattern will not
+result in any speed up. 
+
 Running
 -------
 
