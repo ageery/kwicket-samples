@@ -43,6 +43,23 @@ object L10nPageTest : Spek({
            }
        }
 
+       on("loading the home page with a French-language locale") {
+           tester.session.locale = Locale.FRENCH
+           tester.startPage(L10nPage::class.java)
+           it("should render") {
+               tester.assertRenderedPage(L10nPage::class.java)
+           }
+           it("should have a label with 'Name' (coming from the literal in code)") {
+               tester.assertLabel(nameLabelPath, "Name")
+           }
+           it("should have a label with 'Donald Duck' (coming from the model)") {
+               tester.assertLabel(namePath, "Donald Duck")
+           }
+           it("should have a label with '$englishJobLabel' (coming from the properties.xml file)") {
+               tester.assertLabel(jobLabelPath, englishJobLabel)
+           }
+       }
+
        on("selecting Chinese as the language when in an English locale") {
            tester.session.locale = Locale.ENGLISH
            tester.startPage(L10nPage::class.java)

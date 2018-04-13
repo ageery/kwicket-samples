@@ -1,7 +1,6 @@
 package org.kwicket.sample.async
 
 import org.apache.wicket.model.IModel
-import org.apache.wicket.request.mapper.parameter.PageParameters
 import org.kwicket.component.q
 import org.kwicket.model.res
 import org.kwicket.sample.shared.page.SampleBasePage
@@ -12,20 +11,39 @@ import org.kwicket.wicket.core.markup.html.link.KBookmarkablePageLink
 class AsyncHomePage : SampleBasePage() {
 
     init {
-        q(KLabel(id = "serialLabel", model = "Serial Model Page".res()))
-        q(KLabel(id = "parallelLabel", model = "Parallel Model Page".res()))
+        q(KLabel(id = "asyncModel", model = "Async Model".res()))
+        q(KLabel(id = "serialModelLabel", model = "Serial Model Page".res()))
+        q(KLabel(id = "parallelModelLabel", model = "Parallel Model Page".res()))
         q(
             KBookmarkablePageLink(
-                id = "serialLink",
-                page = AsyncPage::class.java,
-                params = PageParameters().add("p", false)
+                id = "serialModelPageLink",
+                page = AsyncModelPage::class,
+                params = AsyncModelPage.makeParams(parallel = false)
             )
         )
         q(
             KBookmarkablePageLink(
-                id = "parallelLink",
-                page = AsyncPage::class.java,
-                params = PageParameters().add("p", true)
+                id = "parallelModelPageLink",
+                page = AsyncModelPage::class,
+                params = AsyncModelPage.makeParams(parallel = true)
+            )
+        )
+
+        q(KLabel(id = "asyncTable", model = "Async Table".res()))
+        q(KLabel(id = "serialTableLabel", model = "Serial Table Page".res()))
+        q(KLabel(id = "parallelTableLabel", model = "Parallel Table Page".res()))
+        q(
+            KBookmarkablePageLink(
+                id = "serialTablePageLink",
+                page = AsyncTablePage::class,
+                params = AsyncTablePage.makeParams(parallel = false)
+            )
+        )
+        q(
+            KBookmarkablePageLink(
+                id = "parallelTablePageLink",
+                page = AsyncTablePage::class,
+                params = AsyncTablePage.makeParams(parallel = true)
             )
         )
     }

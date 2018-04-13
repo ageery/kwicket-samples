@@ -24,6 +24,7 @@ import org.kwicket.wicket.core.markup.html.basic.KLabel
 import org.kwicket.wicket.core.markup.html.form.KChoiceRenderer
 import org.kwicket.wicket.core.markup.html.form.KForm
 import java.io.Serializable
+import java.util.*
 import java.util.Locale.ENGLISH
 import java.util.Locale.SIMPLIFIED_CHINESE
 
@@ -35,12 +36,12 @@ data class Person(val name: String, val job: String) : Serializable
 /*
  * Event object indicating that a component should be updated via ajax.
  */
-object AjaxRefresh
+class LocaleChanged(val locale: Locale)
 
 /*
  * Returns a behavior to refresh a component when the `AjaxRefresh` event payload is received.
  */
-private fun ajaxRefreshHandler(): Behavior = onEvent<AjaxRefresh>(outputMarkupId = true) { _, component ->
+private fun ajaxRefreshHandler(): Behavior = onEvent<LocaleChanged>(outputMarkupId = true) { _, component ->
     component.refresh()
 }
 
@@ -49,10 +50,15 @@ class L10nPage : SampleBasePage() {
     init {
 
         /*
+         * Set the locale when changed.
+         */
+        add(onEvent<LocaleChanged>(outputMarkupId = true) { payload, _ -> session.locale = payload.locale })
+
+        /*
          * Data container.
          */
         val model = Person(name = "Donald Duck", job = "Cartoon").model()
-        q(KWebMarkupContainer(id = "container", behaviors = *arrayOf(ajaxRefreshHandler())))
+        q(KWebMarkupContainer(id = "container", behaviors = listOf(ajaxRefreshHandler())))
         q(KLabel(id = "nameLabel", model = "Name".res()))
         q(KLabel(id = "name", model = model + { it.name }))
         q(KLabel(id = "jobLabel", model = "Job Title".res()))
@@ -61,13 +67,13 @@ class L10nPage : SampleBasePage() {
         /*
          * Language form.
          */
-        val localeModel = { session.locale }.ldm()
+        val localeModel = session.locale.model()
         q(KForm(id = "form", model = localeModel))
         q(
             KLabel(
                 id = "language",
                 model = "Language".res(),
-                behaviors = *arrayOf(ajaxRefreshHandler())
+                behaviors = listOf(ajaxRefreshHandler())
             )
         )
         q(
@@ -79,12 +85,9 @@ class L10nPage : SampleBasePage() {
                 renderer = KChoiceRenderer(toDisplay = { it.displayName },
                     toIdValue = { locale, _ -> locale.language },
                     toObject = { id, listModel -> listModel.value.first { it.language == id } }),
-                behaviors = *arrayOf(
+                behaviors = listOf(
                     KAjaxFormComponentUpdatingBehavior(event = "change",
-                        onUpdate = {
-                            session.locale = localeModel.value
-                            send(page, Broadcast.BREADTH, AjaxRefresh)
-                        })
+                        onUpdate = { send(page, Broadcast.BREADTH, LocaleChanged(locale = localeModel.value)) })
                 )
             )
         )
@@ -99,15 +102,15 @@ class L10nPage : SampleBasePage() {
             NavbarComponents.transform(
                 Navbar.ComponentPosition.RIGHT,
                 KNavbarButton(
-                    pageClass = L10nPage::class.java,
+                    pageClass = L10nPage::class,
                     label = "Home".res(),
                     icon = GlyphIconType.home,
-                    behaviors = *arrayOf(ajaxRefreshHandler())
+                    behaviors = listOf(ajaxRefreshHandler())
                 )
             ) +
                     NavbarComponents.transform(Navbar.ComponentPosition.LEFT,
                         KNavbarAjaxLink(label = "Switch Language".res(),
-                            behaviors = *arrayOf(ajaxRefreshHandler()),
+                            behaviors = listOf(ajaxRefreshHandler()),
                             model = {
                                 if (session.locale.language != SIMPLIFIED_CHINESE.language) SIMPLIFIED_CHINESE else ENGLISH
                             }.ldm(),

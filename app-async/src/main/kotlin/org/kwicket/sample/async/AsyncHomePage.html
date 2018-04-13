@@ -1,12 +1,24 @@
 <html xmlns:wicket="http://wicket.apache.org">
 <wicket:extend>
     <div>
+        <span wicket:id="asyncModel">[ASYNC MODEL]</span>
         <ul>
             <li>
-                <a wicket:id="serialLink"><span wicket:id="serialLabel">[SERIAL]</span></a>
+                <a wicket:id="serialModelPageLink"><span wicket:id="serialModelLabel">[SERIAL]</span></a>
             </li>
             <li>
-                <a wicket:id="parallelLink"><span wicket:id="parallelLabel">[PARALLEL]</span></a>
+                <a wicket:id="parallelModelPageLink"><span wicket:id="parallelModelLabel">[PARALLEL]</span></a>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <span wicket:id="asyncTable">[ASYNC TABLE]</span>
+        <ul>
+            <li>
+                <a wicket:id="serialTablePageLink"><span wicket:id="serialTableLabel">[SERIAL]</span></a>
+            </li>
+            <li>
+                <a wicket:id="parallelTablePageLink"><span wicket:id="parallelTableLabel">[PARALLEL]</span></a>
             </li>
         </ul>
     </div>
