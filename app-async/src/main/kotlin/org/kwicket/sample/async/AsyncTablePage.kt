@@ -11,7 +11,7 @@ import org.kwicket.sample.shared.page.SampleBasePage
 import org.kwicket.toParams
 import org.kwicket.wicket.extensions.ajax.markup.html.repeater.data.table.AsyncTableDataProviderLoadBehavior
 import org.kwicket.wicket.extensions.ajax.markup.html.repeater.data.table.KAsyncSortableDataProvider
-import org.kwicket.wicket.extensions.ajax.markup.html.repeater.data.table.KLambdaColumn
+import org.kwicket.wicket.extensions.markup.html.repeater.data.table.KLambdaColumn
 import org.wicketstuff.annotation.mount.MountPath
 import java.io.Serializable
 
